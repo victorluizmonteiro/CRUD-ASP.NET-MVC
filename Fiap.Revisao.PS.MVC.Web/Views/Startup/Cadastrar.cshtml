@@ -1,0 +1,34 @@
+﻿@model Fiap.Revisao.PS.MVC.Web.Models.Startup
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<h2>Cadastro de Startups</h2>
+
+@if(TempData["msg"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    <div class="form-group">
+        @Html.LabelFor(s => s.Nome)
+        @Html.TextBoxFor(s => s.Nome, new { @class = "form-control"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.Faturamento)
+        @Html.TextBoxFor(s => s.Faturamento, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.DataFundacao)
+        @Html.TextBoxFor(s => s.DataFundacao, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Salvar" class="btn btn-primary" />
+    </div>
+}
+

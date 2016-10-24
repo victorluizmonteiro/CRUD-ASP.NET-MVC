@@ -1,0 +1,43 @@
+﻿@model Fiap.Revisao.PS.MVC.Web.Models.Projeto
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<h2>Cadastro de Projeto</h2>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    <div class="form-group">
+        @Html.LabelFor(p => p.Nome)
+        @Html.TextBoxFor(p => p.Nome, new { @class = "form-control"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(p => p.DataInicio)
+        @Html.TextBoxFor(p => p.DataInicio, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(p => p.DataTermino)
+        @Html.TextBoxFor(p => p.DataTermino, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(p => p.Valor)
+        @Html.TextBoxFor(p => p.Valor, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(p => p.Startup)
+        @Html.DropDownListFor(p => p.StartupId , ViewBag.opcoes as SelectList,
+            "Selecione", new { @class = "form-control"})
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Salvar" class="btn btn-primary" />
+    </div>
+}
+

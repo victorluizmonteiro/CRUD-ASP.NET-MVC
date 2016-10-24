@@ -1,0 +1,120 @@
+﻿@model List<Fiap.Revisao.PS.MVC.Web.Models.Projeto>
+@{
+    ViewBag.Title = "Listar";
+}
+
+<h2>Lista de Projetos</h2>
+
+@using(Html.BeginForm("Buscar","Projeto",
+    FormMethod.Get, new {@class = "form-inline"}))
+{
+    <input type="text" name="nomeBusca" class="form-control"/>
+    <input type="submit" value="Buscar" class="btn btn-primary" />
+}
+<hr />
+<table class="table table-striped">
+    <tr>
+        <th>Nome</th>
+        <th>Data de Inicio</th>
+        <th>Data de Término</th>
+        <th>Valor</th>
+        <th>Status</th>
+        <th>Startup</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Nome</td>
+            <td>@item.DataInicio</td>
+            <td>@item.DataTermino</td>
+            <td>@item.Valor</td>
+            <td>@item.Status</td>
+            <td>@item.Startup.Nome</td>
+            <td>
+                @Html.ActionLink("Editar","Editar", 
+                new { id = @item.ProjetoId}, new { @class = "btn btn-primary btn-xs"})
+                <button onclick="codigoProjeto.value = @item.ProjetoId" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal">
+                    Excluir
+                </button>
+                @if (item.Status == Fiap.Revisao.PS.MVC.Web.Models.Status.Aguardando)
+                {
+                    <button onclick="codigoProjeto1.value = @item.ProjetoId" type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal1">
+                        Aprovar
+                    </button>
+                    <button onclick="codigoProjeto2.value = @item.ProjetoId" type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal2">
+                        Reprovar
+                    </button>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmação</h4>
+            </div>
+            <div class="modal-body">
+                Deseja realmente excluir o projeto?
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("Excluir", "Projeto"))
+                {
+                    <input type="hidden" name="id" id="codigoProjeto"/>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-danger">Sim</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmação</h4>
+            </div>
+            <div class="modal-body">
+                Deseja realmente aprovar o projeto?
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("Aprovar", "Projeto"))
+                {
+                    <input type="hidden" name="id" id="codigoProjeto1" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-info">Sim</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmação</h4>
+            </div>
+            <div class="modal-body">
+                Deseja realmente reprovar o projeto?
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("Reprovar", "Projeto"))
+                {
+                    <input type="hidden" name="id" id="codigoProjeto2" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-default">Sim</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
